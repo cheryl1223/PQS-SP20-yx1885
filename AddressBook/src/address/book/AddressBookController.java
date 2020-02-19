@@ -56,7 +56,13 @@ public class AddressBookController {
    * @param entry the AddressBookEntry object that will be added to this.book
    */
   public void addEntry(final AddressBookEntry entry) {
-    this.book.add(entry);
+    if (!entry.isEmpty()) {
+      LOGGER.info(String.format("Add an entry %s ", entry));
+      this.book.add(entry);
+    } else {
+      LOGGER.info(String.format("The entry %s is empty", entry));
+      throw new IllegalArgumentException(String.format("The entry %s is empty", entry));
+    }
   }
   
   /**

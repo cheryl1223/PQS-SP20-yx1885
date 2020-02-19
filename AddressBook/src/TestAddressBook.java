@@ -75,6 +75,16 @@ public class TestAddressBook {
     
     // file path not found.
     book2.readFromJson("/Users/cheryl/pqs/1");
+    
+    // add an empty entry if input is invalid, catch IllegalArgumentException
+    AddressBookEntry entry6 = new AddressBookEntry.Builder()
+            .setName(Name.builder().firstName("-----").build())
+            .build();
+    try {
+      book.addEntry(entry6);
+    } catch (IllegalArgumentException e) {
+      System.out.print(e);
+    }
 
   }
 }
