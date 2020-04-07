@@ -1,6 +1,7 @@
 package edu.nyu.pqs.stopwatch.impl;
 
 import edu.nyu.pqs.stopwatch.api.Stopwatch;
+import lombok.Getter;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
@@ -9,8 +10,17 @@ public class StopwatchImpl implements Stopwatch {
   private static final Logger logger = 
       Logger.getLogger("edu.nyu.pqs.stopwatch.impl.StopwatchImpl");
   private final String id;
+  @Getter
   private boolean isRunning;
+  @Getter
   private long startTime;
+  @Getter
+  private long stopTime;
+  @Getter
+  private long resumeTime;
+  @Getter
+  private long totalResumeInterval;
+  @Getter
   private long lapTime;
   private List<Long> lapTimes;
   private Object lock;
@@ -23,6 +33,9 @@ public class StopwatchImpl implements Stopwatch {
     id = stopwatchID;
     isRunning = false;
     startTime = 0L;
+    stopTime = 0L;
+    resumeTime = 0L;
+    totalResumeInterval = 0L;
     lapTime = 0L;
     lapTimes = new CopyOnWriteArrayList<Long>();
     lock = new Object();
@@ -48,7 +61,13 @@ public class StopwatchImpl implements Stopwatch {
         logger.info("Stopwatch is already running");
         throw new IllegalStateException("Stopwatch is already running");
       }
-      startTime = System.currentTimeMillis();
+      if (startTime == 0L) {
+        startTime = System.currentTimeMillis();
+      } else {
+        resumeTime = System.currentTimeMillis();
+        totalResumeInterval += resumeTime - stopTime;
+        stopTime = 0L;
+      }
       isRunning = true;
     }
   }
@@ -66,8 +85,15 @@ public class StopwatchImpl implements Stopwatch {
         throw new IllegalStateException("Stopwatch isn't running");
       }
       long previouLapTime = lapTime;
-      lapTime = System.currentTimeMillis() - startTime;
-      lapTimes.add(lapTime -  previouLapTime);
+      lapTime = System.currentTimeMillis() - startTime - totalResumeInterval;
+      if (resumeTime == 0L) {
+        lapTimes.add(lapTime -  previouLapTime);
+      } else {
+        int lastIndex = lapTimes.size() - 1;
+        lapTimes.set(lastIndex, lapTime -  previouLapTime);
+        resumeTime = 0L;
+      }
+
     }
   }
 
@@ -83,8 +109,10 @@ public class StopwatchImpl implements Stopwatch {
         throw new IllegalStateException("Stopwatch isn't running");
       }
       long previouLapTime = lapTime;
-      lapTime = System.currentTimeMillis() - startTime;
+      long curTime = System.currentTimeMillis();
+      lapTime = curTime - startTime - totalResumeInterval;
       lapTimes.add(lapTime -  previouLapTime);
+      stopTime = curTime;
       isRunning = false;
     }
   }
@@ -98,6 +126,9 @@ public class StopwatchImpl implements Stopwatch {
     synchronized (lock) {
       isRunning = false;
       startTime = 0L;
+      stopTime = 0L;
+      resumeTime = 0L;
+      totalResumeInterval = 0L;
       lapTime = 0L;
       lapTimes = new CopyOnWriteArrayList<Long>();
     }
