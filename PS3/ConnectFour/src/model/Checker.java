@@ -10,6 +10,7 @@ public class Checker {
   /**
    * Check if the new move results in a column-win.
    * @param move the new Move object
+   * @param board the board of current moves
    * @return true if there's a column-win
    */
   public boolean checkColumn(Move move, Color[][] board) {
@@ -35,6 +36,7 @@ public class Checker {
   /**
    * Check if the new move results in row-win.
    * @param move the new Move object
+   * @param board the board of current moves
    * @return true if there's a row-win
    */
   public boolean checkRow(Move move, Color[][] board) {
@@ -61,6 +63,7 @@ public class Checker {
   /**
    * Check if the new move results in a diagonal-win.
    * @param move the new Move object
+   * @param board the board of current moves
    * @return true if there's a diagonal-win
    */
   public boolean checkDiagonal(Move move, Color[][] board) {
@@ -113,6 +116,7 @@ public class Checker {
   /**
    * Checks the new move results in a win.
    * @param move the new Move object
+   * @param board the board of current moves
    * @return true if there's a diagonal-win
    */
   public boolean checkWin(Move move, Color[][] board) {
@@ -124,6 +128,7 @@ public class Checker {
   }
   /**
    * Checks if the board is full.
+   * @param board the board of current moves
    * @return true if the board is full
    */
   

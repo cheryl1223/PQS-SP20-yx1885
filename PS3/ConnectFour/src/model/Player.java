@@ -2,9 +2,13 @@ package model;
 
 import java.awt.Color;
 
+/**
+ * This is the Player interface for the Connect Four game.
+ */
 public interface Player {
   /**
    * set the player's color.
+   * @param c the color to set
    */
   public void setColor(Color c);
   
