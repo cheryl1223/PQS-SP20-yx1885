@@ -13,7 +13,7 @@ import view.ConnectFourObserver;
  * contains the game logic and the computer opponent logic.
  */
 public class ConnectFourModel {
-  @Getter
+  @Getter @Setter
   private Color[][] board;
   private Player player1;
   private Player player2;

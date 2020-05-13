@@ -53,5 +53,17 @@ public class ConnectFourObserverTest {
     assertThat(view.getMessage().toString(), containsString("full"));
   }
   
-
+  @Test
+  public void testComputerMakeWinMove() {
+    model.resetGame();
+    Mode mode = Mode.ONE;
+    model.startGame(mode);
+    Color[][]board = new Color[Constants.ROWS][Constants.COLUMNS];
+    for (int i = 0; i < Constants.WIN - 1; i++) {
+      board[0][i] = Color.blue;
+    }
+    model.setBoard(board);
+    model.addMove(1, model.getCurrentPlayer());
+    assertThat(view.getMessage().toString(), containsString("blue"));
+  }
 }

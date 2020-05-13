@@ -99,5 +99,5 @@ public class ConnectFourModelTest {
     assertEquals(true, model.removeObserver(observer));
 
   }
-  
+
 }
