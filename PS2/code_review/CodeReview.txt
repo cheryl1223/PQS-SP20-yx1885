@@ -1,2 +1,33 @@
 Please enter your code review in this file as plain text
 and make sure to include it when you commit your project.
+
+/////////////////////////////////
+Entry.java
+
+1. input null checking and preprocessing(trim) can be implemented 
+in separate member functions to avoid code duplicity.
+
+2. Direct modification to parameters should be avoided. Add keyword 
+final to input string, return a new string after trimming.
+
+3. Need to rewrite equals() method for this class because in AddressBook 
+line 47 it uses contains() method.
+
+/////////////////////////////////
+AddressBook.java
+
+1. same as item 3 above. Or use another custom contains() method to decide
+whether an Entry is in the list or not.
+
+2. the name anyFieldsContainAll, nameContainAll etc. are confusing. Can 
+consider name like searchaByAllEntry, searchByName, etc. 
+
+3. the javadoc for nameContainAll, addressContainAll, etc. should be modified
+accordingly rather than still using any of the fields like line 90.
+
+4. the javadoc should also point out what exceptions the method will throw
+
+5. in line 315, instead of using System.err.println(), can consider to log the
+error and throw an exception 
+
+6. line 322 is too long, should consider split it into several statements
