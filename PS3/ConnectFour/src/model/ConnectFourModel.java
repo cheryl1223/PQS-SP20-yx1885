@@ -44,6 +44,7 @@ public class ConnectFourModel {
   /**
    * Observer pattern to add a new observer to model.
    * @param observer the ConnectFourObserver object to add to the model
+   * @return true if a new observer is added
    */  
   public boolean addObserver(final ConnectFourObserver observer) {
      return observers.add(observer);
@@ -52,6 +53,7 @@ public class ConnectFourModel {
   /**
    * to remove a new observer from model.
    * @param observer the ConnectFourObserver object to remove from the model
+   * @return true if observer is removed
    */  
   public boolean removeObserver(final ConnectFourObserver observer) {
     return observers.remove(observer);
@@ -92,6 +94,7 @@ public class ConnectFourModel {
   /**
    * Compute the row index that is not occupied for a column.
    * @param col the column to check
+   * @return int the row index that is not occupied for a column
    */
   public int getCurrentRow(final int col) {
     int row = 0;
@@ -173,6 +176,7 @@ public class ConnectFourModel {
    * Vertically or diagonally adjacent to the move.
    * @param move the move to compute score
    * @param player the player to add the move
+   * @return int the score for the move
    */
   public int getMoveScore(final Move move, final Player player) {
     int score = 0;

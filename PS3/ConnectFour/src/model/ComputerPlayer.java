@@ -15,6 +15,9 @@ public class ComputerPlayer implements Player {
   private final PlayerType playerType = PlayerType.COMPUTER;
   
   @Override
+  /**
+   * {@inheritDoc}
+   */
   public String getColorName() {
     if (color == Color.RED) {
       return "red";

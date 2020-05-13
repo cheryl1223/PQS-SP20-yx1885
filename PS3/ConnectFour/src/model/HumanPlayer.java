@@ -15,6 +15,9 @@ public class HumanPlayer implements Player {
   @Getter 
   private final PlayerType playerType = PlayerType.HUMAN;
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getColorName() {
     if (color == Color.RED) {
